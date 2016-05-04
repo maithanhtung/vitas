@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','VitasController@viewIndex' )->name('viewIndex');
+
+Route::get('/addtitle','VitasController@viewaddTitle')->name('viewaddTitle');
+
+Route::post('/addtitle','VitasController@postTitle')->name('postTitle');
+
+Route::get('/viewtask/{title_id}','VitasController@viewTask')->name('viewTask');
+
+Route::get('/addtask/{title_id}','VitasController@viewaddTask')->name('viewaddTask');
+
+Route::post('/addtask/{title_id}','VitasController@postTask')->name('postTask');
+	
+
