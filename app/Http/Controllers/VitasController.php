@@ -20,6 +20,13 @@ class VitasController extends Controller
         return view ('addtitle');
     }
 
+    public function delTitle($id){
+        $title = Title::where('id',$id)->first();
+        Task::where('title_id',$id)->delete();
+        Title::where('id',$id)->delete();
+        return redirect()->back()->with('title_name',$title->name);
+    }
+
     public function postTitle(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:titles|max:255',
@@ -54,7 +61,7 @@ class VitasController extends Controller
 
     public function postTask(Request $request , $title_id){
         $validator = Validator::make($request->all(), [
-            'desc' => 'required|unique:tasks|max:255',
+            'desc' => 'required|max:255',
             'startdate' => 'required|date|after:today',
             'starttime' => 'required|date_format:H:i',
             'endtime' => 'required|date_format:H:i|after:starttime',
@@ -78,5 +85,10 @@ class VitasController extends Controller
 
         }
 
+    }
+
+    public function delTask($id){
+        Task::where('id',$id)->delete();
+        return redirect()->back()->with('mess','Delete task successfully!');
     }
 }
